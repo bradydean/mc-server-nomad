@@ -29,10 +29,10 @@ job "paper" {
     service {
       name = "paper"
       tags = [
-	"minecraft",
-	"paper",
-	"traefik.enable=true",
-	"traefik.tcp.routers.minecraft.rule=HostSNI(`*`)",
+        "minecraft",
+        "paper",
+        "traefik.enable=true",
+        "traefik.tcp.routers.minecraft.rule=HostSNI(`*`)",
       ]
       port = "minecraft"
 

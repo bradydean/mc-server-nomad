@@ -8,13 +8,13 @@ job "traefik" {
 
     network {
       port "minecraft" {
-	static = 25565
+        static = 25565
       }
       port "http" {
-	static = 8080
+        static = 8080
       }
       port "traefik" {
-	static = 8081
+        static = 8081
       }
     }
 
@@ -25,7 +25,7 @@ job "traefik" {
         type     = "tcp"
         port     = "minecraft"
         interval = "10s"
-        timeout  = "2s"	
+        timeout  = "2s" 
       }
     }
 
@@ -33,15 +33,15 @@ job "traefik" {
       driver = "docker"
 
       config {
-	image        = "traefik:v2.7"
-	network_mode = "host"
-	volumes = [
-	  "local/traefik.toml:/etc/traefik/traefik.toml"
-	]
+        image        = "traefik:v2.7"
+        network_mode = "host"
+        volumes = [
+          "local/traefik.toml:/etc/traefik/traefik.toml"
+        ]
       }
 
       template {
-	data = <<EOF
+        data = <<EOF
 [entryPoints]
     [entryPoints.http]
     address = ":8080"
@@ -62,12 +62,12 @@ job "traefik" {
       address = "127.0.0.1:8500"
       scheme  = "http"
 EOF
-	destination = "local/traefik.toml"
+        destination = "local/traefik.toml"
       }
 
       resources {
-	cpu    = 100
-	memory = 128
+        cpu    = 100
+        memory = 128
       }
     }
   }
