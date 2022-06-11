@@ -55,7 +55,7 @@ job "paper" {
 
     task "paper" {
       driver = "docker"
-      user = "paper"
+      user = "1000"
 
       volume_mount {
 	volume      = "paper-data"
