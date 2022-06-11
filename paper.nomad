@@ -18,6 +18,10 @@ job "paper" {
         host_network = "default"
         to           = 25565
       }
+      port "dynmap" {
+        host_network = "default"
+        to           = 8123
+      }
     }
 
     volume "paper-data" {
@@ -35,6 +39,24 @@ job "paper" {
         "traefik.tcp.routers.minecraft.rule=HostSNI(`*`)",
       ]
       port = "minecraft"
+
+      check {
+        name     = "alive"
+        type     = "tcp"
+        interval = "10s"
+        timeout  = "2s"
+      }
+    }
+
+    service {
+      name = "dynmap"
+      tags = [
+        "dynmap",
+        "traefik.enable=true",
+        "traefik.http.routers.dynmap.rule=Host(`dynmap.mc-server.lan`)",
+        "traefik.http.routers.dynmap.entrypoints=http",
+      ]
+      port = "dynmap"
 
       check {
         name     = "alive"

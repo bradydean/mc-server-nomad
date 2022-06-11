@@ -54,13 +54,18 @@ job "traefik" {
     dashboard = true
     insecure  = true
 
+[http.routers.traefik]
+    rule = "Host(`traefik.mc-server.lan`)"
+    entryPoints = ["traefik"]
+    service = "api@internal"
+
 [providers.consulCatalog]
     prefix           = "traefik"
     exposedByDefault = false
 
-    [providers.consulCatalog.endpoint]
-      address = "127.0.0.1:8500"
-      scheme  = "http"
+[providers.consulCatalog.endpoint]
+    address = "127.0.0.1:8500"
+    scheme  = "http"
 EOF
         destination = "local/traefik.toml"
       }
