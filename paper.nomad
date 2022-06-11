@@ -16,7 +16,6 @@ job "paper" {
       mode     = "bridge"
       port "minecraft" {
         host_network = "default"
-        static       = 25565
         to           = 25565
       }
     }
@@ -29,7 +28,12 @@ job "paper" {
 
     service {
       name = "paper"
-      tags = ["minecraft", "paper"]
+      tags = [
+	"minecraft",
+	"paper",
+	"traefik.enable=true",
+	"traefik.tcp.routers.minecraft.rule=HostSNI(`*`)",
+      ]
       port = "minecraft"
 
       check {
