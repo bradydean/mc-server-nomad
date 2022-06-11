@@ -15,9 +15,9 @@ job "paper" {
     network {
       mode     = "bridge"
       port "minecraft" {
-	host_network = "default"
-	static       = 25565
-	to           = 25565
+        host_network = "default"
+        static       = 25565
+        to           = 25565
       }
     }
 
@@ -58,24 +58,24 @@ job "paper" {
       user = "1000"
 
       volume_mount {
-	volume      = "paper-data"
-	destination = "/paper"
-	read_only   = false
+        volume      = "paper-data"
+        destination = "/paper"
+        read_only   = false
       }
       
       config {
         image = "amazoncorretto:18"
-	ports = ["minecraft"]
-	command = "java"
-	interactive = true
-	tty = true
-	work_dir = "/paper"
-	args = [
-	  "-Xmx3G",
-	  "-jar",
-	  "paper-1.18.2-378.jar",
-	  "nogui",
-	]
+        ports = ["minecraft"]
+        command = "java"
+        interactive = true
+        tty = true
+        work_dir = "/paper"
+        args = [
+          "-Xmx3G",
+          "-jar",
+          "paper-1.18.2-378.jar",
+          "nogui",
+        ]
       }
 
       resources {
