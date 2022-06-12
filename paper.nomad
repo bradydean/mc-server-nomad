@@ -40,29 +40,8 @@ job "paper" {
       ]
       port = "minecraft"
 
-      check {
-        name     = "alive"
-        type     = "tcp"
-        interval = "10s"
-        timeout  = "2s"
-      }
-    }
-
-    service {
-      name = "dynmap"
-      tags = [
-        "dynmap",
-        "traefik.enable=true",
-        "traefik.http.routers.dynmap.rule=Host(`dynmap.mc-server.lan`)",
-        "traefik.http.routers.dynmap.entrypoints=http",
-      ]
-      port = "dynmap"
-
-      check {
-        name     = "alive"
-        type     = "tcp"
-        interval = "10s"
-        timeout  = "2s"
+      connect {
+        sidecar_service {}
       }
     }
 
@@ -83,10 +62,19 @@ job "paper" {
       driver = "docker"
       user = "1000"
 
+      vault {
+        policies = ["read-postgres-password"]
+      }      
+
       volume_mount {
         volume      = "paper-data"
         destination = "/paper"
         read_only   = false
+      }
+
+      template {
+        data        = file("./configuration.txt.tpl")
+        destination = "local/configuration.txt"
       }
       
       config {
@@ -101,6 +89,9 @@ job "paper" {
           "-jar",
           "paper-1.18.2-378.jar",
           "nogui",
+        ]
+        volumes = [
+          "local/configuration.txt:/paper/plugins/dynmap/configuration.txt"
         ]
       }
 

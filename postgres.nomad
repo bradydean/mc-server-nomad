@@ -31,15 +31,14 @@ job "postgres" {
       tags = [
         "postgres",
         "db",
+        "traefik.enable=true",
+        "traefik.tcp.routers.postgres.rule=HostSNI(`*`)",       
       ]
       port = "postgres"
 
-      check {
-        name     = "alive"
-        type     = "tcp"
-        interval = "10s"
-        timeout  = "2s"
-      }
+      connect {
+        sidecar_service {}
+      }      
     }
 
     restart {
@@ -72,6 +71,17 @@ EOF
         destination = "secrets/file.env"
         env         = true
       }
+
+      template {
+        data = <<EOF
+{{ with secret "secret/postgres" }}
+CREATE USER dynmap WITH PASSWORD '{{ .Data.dynmap_password }}';
+CREATE DATABASE dynmap;
+GRANT ALL PRIVILEGES ON DATABASE dynmap TO dynmap;
+{{ end }}
+EOF
+        destination = "local/init.sql"
+      }
       
       volume_mount {
         volume      = "postgres-data"
@@ -82,6 +92,9 @@ EOF
       config {
         image = "postgres:14"
         ports = ["postgres"]
+        volumes = [
+          "/local/init.sql:/docker-entrypoint-initdb.d/init.sql"
+        ]
       }
 
       resources {

@@ -7,6 +7,7 @@ job "traefik" {
     count = 1
 
     network {
+      mode = "bridge"
       port "minecraft" {
         static = 25565
       }
@@ -16,17 +17,16 @@ job "traefik" {
       port "traefik" {
         static = 8081
       }
+      port "postgres" {
+        static = 5432
+      }
     }
 
     service {
       name = "traefik"
-      check {
-        name     = "alive"
-        type     = "tcp"
-        port     = "minecraft"
-        interval = "10s"
-        timeout  = "2s" 
-      }
+      connect {
+        sidecar_service {}
+      }      
     }
 
     task "traefik" {
@@ -34,7 +34,6 @@ job "traefik" {
 
       config {
         image        = "traefik:v2.7"
-        network_mode = "host"
         volumes = [
           "local/traefik.toml:/etc/traefik/traefik.toml"
         ]
@@ -49,6 +48,8 @@ job "traefik" {
     address = ":8081"
     [entryPoints.minecraft]
     address = ":25565"
+    [entryPoints.postgres]
+    address = ":5432"
 
 [api]
     dashboard = true
