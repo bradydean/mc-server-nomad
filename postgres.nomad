@@ -16,6 +16,7 @@ job "postgres" {
       mode = "bridge"
       port "postgres" {
         host_network = "default"
+        static       = 5432
         to           = 5432
       }
     }
@@ -31,14 +32,8 @@ job "postgres" {
       tags = [
         "postgres",
         "db",
-        "traefik.enable=true",
-        "traefik.tcp.routers.postgres.rule=HostSNI(`*`)",       
       ]
       port = "postgres"
-
-      connect {
-        sidecar_service {}
-      }      
     }
 
     restart {

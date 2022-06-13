@@ -13,15 +13,16 @@ job "paper" {
 
   group "paper-server" {
     network {
-      mode     = "bridge"
+      mode = "bridge"
       port "minecraft" {
         host_network = "default"
         to           = 25565
       }
-      port "dynmap" {
-        host_network = "default"
-        to           = 8123
-      }
+      dns {
+        servers  = ["192.168.1.103"]
+        searches = ["."]
+        options  = []
+      }      
     }
 
     volume "paper-data" {
@@ -39,10 +40,6 @@ job "paper" {
         "traefik.tcp.routers.minecraft.rule=HostSNI(`*`)",
       ]
       port = "minecraft"
-
-      connect {
-        sidecar_service {}
-      }
     }
 
     restart {
@@ -90,6 +87,7 @@ job "paper" {
           "paper-1.18.2-378.jar",
           "nogui",
         ]
+        dns_servers = ["192.168.1.103"]
         volumes = [
           "local/configuration.txt:/paper/plugins/dynmap/configuration.txt"
         ]

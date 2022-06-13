@@ -273,7 +273,7 @@ webserver-port: 8123
 max-sessions: 30
 
 # Disables Webserver portion of Dynmap (Advanced users only)
-disable-webserver: rue
+disable-webserver: true
 
 # Enable/disable having the web server allow symbolic links (true=compatible with existing code, false=more secure (default))
 allow-symlinks: true

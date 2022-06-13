@@ -17,16 +17,10 @@ job "traefik" {
       port "traefik" {
         static = 8081
       }
-      port "postgres" {
-        static = 5432
-      }
     }
 
     service {
       name = "traefik"
-      connect {
-        sidecar_service {}
-      }      
     }
 
     task "traefik" {
@@ -48,8 +42,6 @@ job "traefik" {
     address = ":8081"
     [entryPoints.minecraft]
     address = ":25565"
-    [entryPoints.postgres]
-    address = ":5432"
 
 [api]
     dashboard = true
