@@ -37,8 +37,8 @@ job "paper" {
         "minecraft",
         "paper",
         "traefik.enable=true",
-	"traefik.tcp.routers.minecraft.rule=HostSNI(`*`)",
-	"traefik.tcp.routers.minecraft.entrypoints=minecraft",
+        "traefik.tcp.routers.minecraft.rule=HostSNI(`*`)",
+        "traefik.tcp.routers.minecraft.entrypoints=minecraft",
       ]
       port = "minecraft"
     }
@@ -80,7 +80,7 @@ job "paper" {
         ports = ["minecraft"]
         command = "java"
         interactive = true
-	tty = true
+        tty = true
         work_dir = "/paper"
         args = [
           "-Xmx3G",
@@ -90,8 +90,8 @@ job "paper" {
         ]
         dns_servers = ["192.168.1.103"]
         volumes = [
-	  "local/configuration.txt:/paper/plugins/dynmap/configuration.txt",
-	]
+          "local/configuration.txt:/paper/plugins/dynmap/configuration.txt",
+        ]
       }
 
       resources {
