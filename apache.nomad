@@ -73,17 +73,25 @@ job "apache" {
       }
 
       template {
-        data        = file("./apache2.conf.tpl")
+        data        = file("./apache2.conf")
         destination = "local/apache2.conf"
       }
 
       template {
-        data        = file("./ports.conf.tpl")
+        data        = <<EOF
+Listen 8080
+EOF
         destination = "local/ports.conf"
       }
 
       template {
-        data        = file("./000-default.conf")
+        data        = <<EOF
+<VirtualHost *:8080>
+    ServerAdmin webmaster@localhost
+    DocumentRoot /paper/plugins/dynmap/web
+    LogLevel info
+</VirtualHost>
+EOF
         destination = "local/000-default.conf"
       }
 
