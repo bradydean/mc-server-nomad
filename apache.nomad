@@ -41,6 +41,14 @@ job "apache" {
         "traefik.http.routers.nginx.rule=PathPrefix(`/`)",
       ]
       port = "http"
+      check {
+        name     = "alive"
+        path     = "/"
+        port     = "http"
+        timeout  = "5s"
+        type     = "http"
+        interval = "10s"
+      }
     }
 
     restart {

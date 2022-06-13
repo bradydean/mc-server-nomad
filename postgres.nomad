@@ -34,6 +34,13 @@ job "postgres" {
         "db",
       ]
       port = "postgres"
+      check {
+        name     = "alive"
+        type     = "tcp"
+        port     = "postgres"
+        interval = "10s"
+        timeout  = "5s"
+      }
     }
 
     restart {

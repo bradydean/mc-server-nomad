@@ -41,6 +41,13 @@ job "paper" {
         "traefik.tcp.routers.minecraft.entrypoints=minecraft",
       ]
       port = "minecraft"
+      check {
+        name     = "alive"
+        type     = "tcp"
+        port     = "minecraft"
+        timeout  = "5s"
+        interval = "10s"
+      }
     }
 
     restart {
