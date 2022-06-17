@@ -33,6 +33,7 @@ job "paper" {
 
     service {
       name = "paper"
+      provider = "nomad"
       tags = [
         "minecraft",
         "paper",
@@ -41,13 +42,6 @@ job "paper" {
         "traefik.tcp.routers.minecraft.entrypoints=minecraft",
       ]
       port = "minecraft"
-      check {
-        name     = "alive"
-        type     = "tcp"
-        port     = "minecraft"
-        timeout  = "5s"
-        interval = "10s"
-      }
     }
 
     restart {

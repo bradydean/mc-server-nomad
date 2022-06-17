@@ -2,7 +2,7 @@ deftemplatesuffix: hires
 
 storage:
   type: postgres
-  hostname: postgres.service.consul
+  hostname: 192.168.1.103
   port: 5432
   database: dynmap
   userid: dynmap

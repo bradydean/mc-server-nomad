@@ -34,21 +34,14 @@ job "apache" {
 
     service {
       name = "apache"
+      provider = "nomad"
       tags = [
-        "nginx",
+        "apache",
         "traefik.enable=true",
-        "traefik.http.routers.nginx.entrypoints=http",
-        "traefik.http.routers.nginx.rule=PathPrefix(`/`)",
+        "traefik.http.routers.apache.entrypoints=http",
+        "traefik.http.routers.apache.rule=PathPrefix(`/`)",
       ]
       port = "http"
-      check {
-        name     = "alive"
-        path     = "/"
-        port     = "http"
-        timeout  = "5s"
-        type     = "http"
-        interval = "10s"
-      }
     }
 
     restart {

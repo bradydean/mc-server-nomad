@@ -16,7 +16,6 @@ job "postgres" {
       mode = "bridge"
       port "postgres" {
         host_network = "default"
-        static       = 5432
         to           = 5432
       }
     }
@@ -29,18 +28,15 @@ job "postgres" {
 
     service {
       name = "postgres"
+      provider = "nomad"
       tags = [
         "postgres",
         "db",
+        "traefik.enable=true",
+        "traefik.tcp.routers.postgres.rule=HostSNI(`*`)",
+        "traefik.tcp.routers.postgres.entrypoints=postgres",    
       ]
       port = "postgres"
-      check {
-        name     = "alive"
-        type     = "tcp"
-        port     = "postgres"
-        interval = "10s"
-        timeout  = "5s"
-      }
     }
 
     restart {
