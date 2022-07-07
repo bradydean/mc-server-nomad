@@ -63,7 +63,16 @@ job "paper" {
 
       vault {
         policies = ["read-postgres-password"]
-      }      
+      }
+
+      artifact {
+	source      = "https://api.papermc.io/v2/projects/paper/versions/1.19/builds/32/downloads/paper-1.19-32.jar"
+	destination = "local/paper.jar"
+	mode        = "file"
+	options {
+	  checksumm = "sha256:d19d1dd7efe3dd37f825f6bc67b51c6bbcddeb6b03d8f8b659a1c8b713c068e7"
+	}
+      }
 
       volume_mount {
         volume      = "paper-data"
@@ -86,12 +95,13 @@ job "paper" {
         args = [
           "-Xmx3G",
           "-jar",
-          "paper-1.18.2-378.jar",
+          "paper.jar",
           "nogui",
         ]
         dns_servers = ["192.168.1.103"]
         volumes = [
-          "local/configuration.txt:/paper/plugins/dynmap/configuration.txt",
+	  "local/configuration.txt:/paper/plugins/dynmap/configuration.txt",
+	  "local/paper.jar:/paper/paper.jar",
         ]
       }
 
