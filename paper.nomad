@@ -81,19 +81,19 @@ job "paper" {
       }
 
       artifact {
-        source      = "https://ci.ender.zone/job/EssentialsX/lastSuccessfulBuild/artifact/jars/EssentialsX-2.19.5-dev+27-4a53cfe.jar"
+        source      = "https://ci.ender.zone/job/EssentialsX/lastSuccessfulBuild/artifact/jars/EssentialsX-2.19.5-dev+29-09dc49a.jar"
         destination = "local/EssentialsX.jar"
         mode        = "file"
       }
 
       artifact {
-        source      = "https://ci.ender.zone/job/EssentialsX/lastSuccessfulBuild/artifact/jars/EssentialsXChat-2.19.5-dev+27-4a53cfe.jar"
+        source      = "https://ci.ender.zone/job/EssentialsX/lastSuccessfulBuild/artifact/jars/EssentialsXChat-2.19.5-dev+29-09dc49a.jar"
         destination = "local/EssentialsXChat.jar"
         mode        = "file"
       }
 
       artifact {
-        source      = "https://ci.ender.zone/job/EssentialsX/lastSuccessfulBuild/artifact/jars/EssentialsXSpawn-2.19.5-dev+27-4a53cfe.jar"
+        source      = "https://ci.ender.zone/job/EssentialsX/lastSuccessfulBuild/artifact/jars/EssentialsXSpawn-2.19.5-dev+29-09dc49a.jar"
         destination = "local/EssentialsXSpawn.jar"
         mode        = "file"
       }
